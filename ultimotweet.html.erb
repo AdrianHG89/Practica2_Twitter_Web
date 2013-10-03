@@ -32,8 +32,8 @@
 	 	</div>
  		
  		<div>
-			<% if @nombre == ''%>
-				<p>  </p>
+			<% if @aceptado == false%>
+				<p> Recuerde poner un nombre valido </p>
 			<%else%>
 				<p>Ultimos <%= @num_tweets %> tweets de <%= @nombre %></p>
 				<ol>

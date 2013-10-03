@@ -12,7 +12,8 @@ class Twitts
 	def initialize
 		@tweets = []
 		@nombre = ''
-		@num_tweets = 0		
+		@num_tweets = 0
+		@aceptado = false	
 	end
 
 	def erb(template)
@@ -22,6 +23,7 @@ class Twitts
 	
 	#Método call
 	def call env
+		@aceptado = false
 		req = Rack::Request.new(env)
 	    
 		binding.pry if ARGV[0]
@@ -35,7 +37,8 @@ class Twitts
 		if @nombre == req["txtnombre"]
 			puts "#{@tweets}"
 			ultimos_tweets = Twitter.user_timeline(@nombre,{:count=>@num_tweets.to_i})
-			@tweets =(@tweets && @tweets != '') ? ultimos_tweets.map{ |i| i.text} : ''				
+			@tweets =(@tweets && @tweets != '') ? ultimos_tweets.map{ |i| i.text} : ''
+			@aceptado = true			
 		end
 
 		#Llamamos a erb
