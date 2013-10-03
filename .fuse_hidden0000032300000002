@@ -11,9 +11,9 @@
 	 	
 	 	<div id="derecha">
 			<form action="/" method="post">
-				<p><b>Introduzca su nombre en Twitter: </b></p><input type="text" name="txtusuario" value="" autofocus>
+				<p><b>Introduzca su nombre en Twitter: </b></p><input type="text" nombre="firstnombre" value="" autofocus>
 				<p><b>Desea ver más. ¿Cuántos Tweets desea ver? </b></p>
-				<select name="txtnum">    
+				<select nombre="programa">    
        					<option value="1" selected="selected">1</option>
        					<option value="2">2</option>
        					<option value="3">3</option>
