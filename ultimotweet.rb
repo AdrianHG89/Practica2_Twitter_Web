@@ -8,43 +8,40 @@ require 'erb'
 
 class Twitts
 
-	#Inicializar variables
+	#Constructor
 	def initialize
-		@todo_tweet = []
-		@name = ''
-		@number = 0		
+		@tweets = []
+		@nombre = ''
+		@num_tweets = 0		
 	end
 
 	#Acceso al HTML para mostrar los resultados
 	def erb(template)
-  		template_file = File.open("twitter.html.erb", 'r')
+  		template_file = File.open("ultimotweet.html.erb", 'r')
   		ERB.new(File.read(template_file)).result(binding)
 	end
 	
 	#Método call
 	def call env
-	    req = Rack::Request.new(env)
+	    	req = Rack::Request.new(env)
 	    
-	    binding.pry if ARGV[0]
+	    	binding.pry if ARGV[0]
 	   
-	   #Si no esta vacio , no es un espacio y el usuario existe en Twitter el nombre es el introducido
-	    @name = (req["firstname"] && req["firstname"] != '' && Twitter.user?(req["firstname"]) == true ) ? req["firstname"] : ''
-
-		@number = (req["n"] && req["n"].to_i>1 ) ? req["n"].to_i : 1
-		puts "#{req["n"]}"
-		
-		#Si el nombre existe buscamos sus últimos Tweets
-		if @name == req["firstname"]
-			puts "#{@todo_tweet}"
-			ultimos_t = Twitter.user_timeline(@name,{:count=>@number.to_i})
-			@todo_tweet =(@todo_tweet && @todo_tweet != '') ? ultimos_t.map{ |i| i.text} : ''				
+	   	
+	    	@nombre = (req["txtusuario"] && req["txtusuario"] != '' && Twitter.user?(req["txtusuario"]) == true ) ? req["txtusuario"] : ''
+		@num_tweets = (req["txtnum"] && req["txtnum"].to_i>1 ) ? req["txtnum"].to_i : 1
+		puts "#{req["txtnum"]}"
+		if @name == req["txtusuario"]
+			puts "#{@tweets}"
+			ultimos_tweet = Twitter.user_timeline(@nombre,{:count=>@num_tweets.to_i})
+			@tweets =(@tweets && @tweets != '') ? ultimos_tweet.map{ |i| i.text} : ''				
 		end
 
 		#Invoca a erb
-		Rack::Response.new(erb('twitter.html.erb'))
+		Rack::Response.new(erb('ultimotweet.html.erb'))
 	end
-
 end
+
 
 if $0 == __FILE__
 	Rack::Server.start(
@@ -52,7 +49,7 @@ if $0 == __FILE__
 #        	Rack::Lint.new(
 #           	Rack::Twitts.new)), 
 		:app => Twitts.new,
-	    :Port => 9595,
+	    :Port => 9494,
 	    :server => 'thin'
   	)
 end
