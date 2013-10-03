@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
 		<title>..::Practica 2 - Ultimos Tweet::..</title>
 	</head>
 	<body>
@@ -9,12 +9,12 @@
 			<b>..::Practica 2 - Ultimos Tweet::..</b></p>
 		</div>
 	 	
-	 	<div id="derecha">
-			<form action="/" method="post">
-				<p><b>Introduzca su nombre en Twitter: </b></p><input type="text" name="txtusuario" value="" autofocus>
-				<p><b>Desea ver más. ¿Cuántos Tweets desea ver? </b></p>
-				<select name="txtnum">    
-       					<option value="1" selected="selected">1</option>
+	 	<div>
+		 	<form action="/" method="post">
+		   		<p><b>Introduzca su nombre de usuario: </b></p><input type="text" name="txtnombre"  value="" autofocus>
+		   		<p><b>Seleccione el numero de tweets que quiere ver:</b></p>
+				<select onchange="this.form['txtnum'].value=this.value">    
+       					<option value="1">1</option>
        					<option value="2">2</option>
        					<option value="3">3</option>
 					<option value="4">4</option>
@@ -25,19 +25,20 @@
 					<option value="9">9</option>
 					<option value="10">10</option>
 				</select>
-				<input type="submit" value="Enviar" >
-			</form>
-		</div>
+				
+				<input type="hidden" name="txtnum" value="1">
+		   		<input  type="submit" value="Buscar" >
+		 	</form>
+	 	</div>
  		
- 		<div id="izquierda">
+ 		<div>
 			<% if @nombre == ''%>
-				<p id="warning"> No se ha introducido usuario o es incorrecto </p>
+				<p>  </p>
 			<%else%>
-				<p><b> Usuario <%= @nombre %></b></p>
-				<p>Sus úlimos <%= @num_tweets %> Tweets :</p>
+				<p>Ultimos <%= @num_tweets %> tweets de <%= @nombre %></p>
 				<ol>
-					<% @tweets.each do |i| %>
-					<li id="col"><%= i %><br></li>
+					<% @tweets.each do |i| %> 
+						<li><%= i %><br></li>
 					<% end %>
 				</ol>
 			<%end %>
