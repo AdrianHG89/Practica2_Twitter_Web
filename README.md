@@ -15,6 +15,7 @@ Ejecución
 	
 	Luego debemos ir al navegador y en la barra de direcciones poner "http://localhost:8080", entonces tendremos acceso a la aplicacion.
 	Recuerda que para parar el servidor web Ctrl+C. De otra forma deberas matar el proceso.
+------------
 		Para listar los puertos usados se utiliza el comando
 
 		netstat -putan
